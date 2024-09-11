@@ -70,8 +70,6 @@ For testing, I also created a [notebook](https://colab.research.google.com/drive
 
 ### Problem 02 - Data Extraction and Analysis
 
-#### Your task
-
 1. Create a prompt that extracts the necessary information from the DANFE.
 2. The LLM Agent's output should include a plain text summary of the information extracted, and a JSON output that could be used to issue a similar NF-e.
 
@@ -100,3 +98,36 @@ task: Extract key information (such as CNPJ, CPF, items, total value, etc.) from
 ```
 
 My tests in [ChatGPT](https://chatgpt.com/share/4e82e8f9-c3ee-42b3-a596-ddfb39415553) using GPT-4o works as follows, in this case, I didn't notice any differences, however, the second prompt may prove to be more effective with other files.
+
+### Problem 03 - Information Summarization
+
+1. Create a prompt that helps a farmer understand which taxes are usually paid when selling agricultural products.
+2. Keep in mind the farmer is not a tax expert, so the explanation should be simple and straightforward.
+3. Consider a user flow in which the farmer asks questions about specific taxes (ICMS, PIS/COFINS, etc.).
+
+I crafted a prompt that explicitly guides the model towards elucidating the tax system in a simple and clear manner. Subsequently, it outlines the most crucial aspects by posing questions that delve into the expected topics.
+
+```
+Explique de forma clara e simples como funciona o sistema de taxas no agronegócio brasileiro.
+- Quais são as principais taxas que os produtores rurais precisam pagar?
+- Em que situações essas taxas são obrigatórias?
+- Quando elas não precisam ser pagas?
+- Descreva o retorno ou benefícios que os produtores recebem ao pagar essas taxas, como melhorias em infraestrutura, subsídios ou outros incentivos.
+```
+
+In response, the model provided a well-structured and straightforward explanation of each tax and its significance. However, anticipating that the farmer might pose additional inquiries, I revised the prompt to indicate that further questions would be forthcoming.
+
+```
+Explique de forma clara e simples como funciona o sistema de taxas no agronegócio brasileiro.
+- Quais são as principais taxas que os produtores rurais precisam pagar?
+- Em que situações essas taxas são obrigatórias?
+- Quando elas não precisam ser pagas?
+- Descreva o retorno ou benefícios que os produtores recebem ao pagar essas taxas, como melhorias em infraestrutura, subsídios ou outros incentivos.
+
+Retorne respostas resumidas e posteriormente irei solicitar respostas específicas.
+```
+
+As a result, the reply became more succinct and direct, enhancing both its readability and effectiveness. The chat exchanges can be reviewed via the links below:
+
+-   [First Try](https://chatgpt.com/share/b0954940-8698-4ce3-8340-3b459c2eb004)
+-   [Second Try](https://chatgpt.com/share/ee247ced-cd48-480e-9e5f-e02e18013a9b)
