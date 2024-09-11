@@ -127,3 +127,36 @@ def fibonacci(n):
 ```
 
 ### Problem 02 - Data Storage/Retrieval
+
+1. Implement a function that receives a string and returns the output as described above.
+
+```ts
+function CountCharacters(str: string): string {
+	const charMap = new Map<string, { firstChar: string; count: number }>();
+
+	for (const char of str) {
+		const lowerChar = char.toLowerCase();
+		if (charMap.has(lowerChar)) {
+			charMap.get(lowerChar)!.count++;
+		} else {
+			charMap.set(lowerChar, { firstChar: char, count: 1 });
+		}
+	}
+
+	let result = "Key | FirstChar | Count\n";
+	result += "------------------------\n";
+	for (const [key, value] of charMap.entries()) {
+		result += `${key}  |     ${value.firstChar}     | ${value.count}\n`;
+	}
+
+	return result;
+}
+```
+
+2. What is the time complexity of your implementation?
+
+The time complexity depends on the loop used and the complexity of the operations performed with the Map structure. Since it is necessary to iterate through all the characters, the loop's complexity is O(n), so the algorithm is at least O(n). However, the operations with the Map need to be analyzed. Typically, Maps are structures that use a hash table, and after some research, I found that in JavaScript, they work similarly, allowing get and set operations to be approximately O(1). Regarding the has operation, I couldn't find specific information about its complexity, but considering that get and set operations require identifying where the key is, checking whether a key exists can also be approximated to O(1). Since the operations inside the loop are O(1), I can assert that the loop itself is O(n). To build the output string, it's necessary to go through all the objects in the map, which in the worst case is O(n) if the input string contains all unique characters. Therefore, the overall complexity of the implemented function is O(n) because it only depends on the size of the input.
+
+3. Is this complexity optimal? If yes, why? If not, how would you improve it?
+
+Yes, it is optimal because it would be impossible to do this without passing through the input at least once. So, O(n) is the best complexity for this function.
