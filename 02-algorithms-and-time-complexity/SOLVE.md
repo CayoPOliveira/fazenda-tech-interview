@@ -11,7 +11,7 @@
 To solve this in O(n) time complexity I did a iteration over the sequence and returned the N solution. To solve this in O(n) space complexity I did a list with all values of fibonacci values from 1 to N.
 
 ```python
-def iterative_fibonacci_OnSpace(n):
+def fibonacci(n):
     if n <= 1: return n
 
     F = [1]*n
@@ -23,7 +23,7 @@ def iterative_fibonacci_OnSpace(n):
 The O(1) space complexity uses just 2 variables F(n) and F(n-1) that I call F(before).
 
 ```python
-def iterative_fibonacci_O1Space(n):
+def fibonacci(n):
     if n <= 1: return n
 
     Fbefore, Fn = 0, 1
@@ -93,7 +93,20 @@ F(n) &= \dfrac{1}{\sqrt{5}} \cdot \left[a^n - b^n\right]\nonumber\\
 \right.
 $
 
-For computing, this will be hard, so lets simplify:
+With this, I can make the following code:
+
+```python
+a = (1 + (5**(0.5)) )/2
+b = (1 - (5**(0.5)) )/2
+AB = [ a**n - b**n for n in range(1001)]
+
+def fibonacci(n):
+    global AB
+    Fn = AB[n] // ( 5**(0.5) )
+    return int(Fn)
+```
+
+For computing, the float numbers make it hard, the values will not be exact, so i tried to make another function:
 
 $
 \beta_n =  a^n - b^n \\
@@ -109,22 +122,24 @@ a =& \frac{1 + \sqrt{5}}{2} \nonumber\\ b =& \frac{1 - \sqrt{5}}{2} \nonumber\\
 F(n) =& \dfrac{1}{\sqrt{5}} \cdot \beta_n && \nonumber \end{align} \right.
 $
 
-In this form, I can make a list for $\beta_n$ and $b^n$, because the square root of the function is hard to give exact values for bit positions, but the function can be used.
+In this form, I can make a list for $\beta_n$ and $b^n$ using the last position.
 
 ```python
-sqrt5 = 5**(0.5)
-a = (1+sqrt5)/2
-b = (1-sqrt5)/2
-bN = [1]*1001
-BetaN = [0] + [a-b]*1000
-for i in range(1, 1001):
-    bN[i] = bN[i-1] * b
-    BetaN[i] = (a * BetaN[i-1]) + (bN[i-1]*sqrt5)
+a = (1 + (5**(0.5)) )/2
+b = (1 - (5**(0.5)) )/2
+
+b_n = [ b**n for n in range(1001)]
+Beta_n = [0]*1001
+for i in range(1,1001):
+    Beta_n[i] = (a*Beta_n[i-1]) + (b_n[i-1]*(5**(0.5)))
 
 def fibonacci(n):
-    global BetaN
-    return int(BetaN[n] // sqrt5)
+	global Beta_n, b_n
+    Fn = Beta_n[n] // (5**(0.5))
+    return int(Fn)
 ```
+
+This second version is equivalent, but the results are more accurate. The pyhon file [Fibonacci.py](Fibonacci.py) can be used to test and see the results.
 
 ### Problem 02 - Data Storage/Retrieval
 
